@@ -16,6 +16,8 @@ const Chat = ({ uid }) => {
 
   const { user } = useAuthValue();
 
+  const { documents: users } = useFecthDocument("users")
+
   const handlerSubmit = (e) => {
     e.preventDefault();
 
@@ -31,11 +33,17 @@ const Chat = ({ uid }) => {
 
     setMessageText("");
   };
+  let us
+   if(users != null){
+    us = users.find((u)=> u.uid == `${uid}`)
+   }
 
+   
   return (
     <div className="chat-container">
       {uid && (
         <>
+          <h1 style={{background: "#fff", marginBottom: "1rem"}}>{us.name}</h1>
           <ul className="chat">
             {messages &&
               messages
