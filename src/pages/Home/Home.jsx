@@ -1,7 +1,10 @@
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      teste de um site pra trocar mensagens by sopa 😎,
+      cria conta e manda umas mensagem
+    </div>
   )
 }
 

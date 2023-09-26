@@ -25,14 +25,23 @@ const App = () => {
 
   return (
     <>
-      <AuthProvider value={{user}}>
+      <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-            <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
-            <Route path="/chat/:uid?" element={<ChatScreen />} />
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <Register /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/chat/:uid?"
+              element={user ? <ChatScreen /> : <Navigate to="/" />}
+            />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

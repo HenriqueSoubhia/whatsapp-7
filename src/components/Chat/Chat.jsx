@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Chat.sass";
 
 import { useInsertDocument } from "../../hooks/useInsertDocument";
@@ -19,6 +19,8 @@ const Chat = ({ uid }) => {
   const handlerSubmit = (e) => {
     e.preventDefault();
 
+    if (!messageText) return;
+
     const messageObj = {
       toId: uid,
       fromId: user.uid,
@@ -35,28 +37,27 @@ const Chat = ({ uid }) => {
       {uid && (
         <>
           <ul className="chat">
-            {/* {messages &&
+            {messages &&
               messages
-                .filter((message) => message.fromId === user.uid)
+                .filter((message) => {
+                  return (
+                    (message.fromId === user.uid && message.toId === uid) ||
+                    (message.fromId === uid && message.toId ===  user.uid )
+                  );
+                })
+
                 .map((message, i) => (
-                  <li key={i} className="chat-box you-chat">
+                  <li
+                    key={i}
+                    className={
+                      message.fromId === user.uid
+                        ? "chat-box you-chat"
+                        : "chat-box other-chat"
+                    }
+                  >
                     <p>{message.text}</p>
                   </li>
                 ))}
-            {messages &&
-              messages
-                .filter((message) => message.fromId === uid)
-                .map((message, i) => (
-                  <li key={i} className="chat-box other-chat">
-                    <p>{message.text}</p>
-                  </li>
-                ))} */}
-
-              {messages && messages.map((message,i)=>(
-                <li key={i} className={message.fromId === user.uid ? "chat-box you-chat": "chat-box other-chat"}>
-                  <p>{message.text}</p>
-                </li>
-              ))}
           </ul>
           <form onSubmit={handlerSubmit}>
             <input
