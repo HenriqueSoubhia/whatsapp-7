@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { db } from "../firebase/config";
 
 import {
   getAuth,
@@ -8,12 +7,16 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+
+
+import { useInsertDocument } from "./useInsertDocument";
 
 export const useAuthentication = () => {
   const auth = getAuth();
 
   const [cancelled, setCancelled] = useState(false);
+
+  const { insertDocument } = useInsertDocument("users");
 
   function checkIsCancelled() {
     if (cancelled) {
@@ -39,7 +42,11 @@ export const useAuthentication = () => {
 
       await updateProfile(user, { name: data.name });
 
-      await addDoc(collection(db, "users"), { name: data.name });
+      await insertDocument({
+        name: data.username,
+        email: data.email,
+        uid: user.uid,
+      });
 
       return user;
     } catch (error) {

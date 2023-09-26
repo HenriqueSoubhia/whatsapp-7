@@ -32,7 +32,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
             <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
-            <Route path="/chat" element={<ChatScreen />} />
+            <Route path="/chat/:uid?" element={<ChatScreen />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

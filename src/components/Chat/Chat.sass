@@ -2,6 +2,22 @@
     background-color: #535353
     padding: 20px
     height: 100%
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    form
+        flex-direction: row
+        height: 48px
+        max-width: none
+
+        input
+            width: 100%
+
+        button,input
+            height: 100%
+            margin: 0
 
 .chat
     display: flex
@@ -13,6 +29,7 @@
     &-box
         padding: 8px
         background-color: #212121
+        margin-bottom: 8px
 
 .you-chat
     align-self: flex-end

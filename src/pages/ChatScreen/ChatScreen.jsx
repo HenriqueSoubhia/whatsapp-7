@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react";
 import Chat from "../../components/Chat/Chat";
-import { db } from "../../firebase/config";
-import { getAuth } from "firebase/auth";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { useFecthDocument } from "../../hooks/useFecthDocument";
 
+import "./ChatScreen.sass";
+import { Link, useParams } from "react-router-dom";
+import { useAuthValue } from "../../contexts/useAuth";
 
 const ChatScreen = () => {
+  const { documents: users } = useFecthDocument("users");
 
-  //tem que listar os ususarios, boa sorte futuro popa
+  const {uid} = useParams()
 
-  const auth = getAuth()
-
-  const [users,setUsers] = useState([])
-
-  useEffect(()=>{
-    const q = query(collection(db,"users"))
-    const unsubscribe = onSnapshot  (q, (querySnapshot) => {
-      let usersArr = [];
-      querySnapshot.forEach((doc) => {
-        usersArr.push({ ...doc.data(), id: doc.id });
-      });
-      setUsers(usersArr);
-    });
-    return () => unsubscribe();
-  },[])
+  const { user:thisUser } = useAuthValue();
 
 
   return (
     <div className="chat-screen">
       <div className="chats">
         <ul>
-          {users&&users.map((user,i)=>(
-            <li key={i}>{user.name}</li>
-          ))}
+          {users &&
+            users.filter((user)=>user.uid != thisUser.uid).map((user, i) => (
+              <li key={i}>
+                <Link to={`/chat/${user.uid}`}>{user.name}</Link>
+              </li>
+            ))}
         </ul>
       </div>
-      <Chat />
+      <Chat uid={uid}/>
     </div>
   );
 };
