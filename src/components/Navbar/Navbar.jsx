@@ -33,6 +33,9 @@ const Navbar = () => {
             <NavLink to="/chat">Chatzada</NavLink>
           </li>
           <li>
+            <NavLink to="/profile">Perfil</NavLink>
+          </li>
+          <li>
             <button onClick={logout}>Sair</button>
           </li>
           </>

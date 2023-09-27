@@ -1,6 +1,5 @@
 .chat-container
-    background-color: #535353
-    padding: 20px
+    background-color: #ababab
     height: 100%
     width: 100%
     display: flex
@@ -8,19 +7,32 @@
     justify-content: space-between
     overflow: auto
     position: relative
-    padding-bottom: 80px 
+
+    h4
+        padding: 20px
+        background-color: #d7d7d7
+
+    ul
+        padding: 20px
+        overflow-y: scroll
+        &::-webkit-scrollbar
+            display: none
+
+    .form-container
+        width: 100%
+        padding: 16px
+
 
     form
         flex-direction: row
         height: 48px
-        position: fixed
-        bottom: 16px        
+        max-width: none    
 
         input
             width: 100%
-
+            font-size: 16px
+            
         button,input
-            height: 100%
             margin: 0
 
 .chat
@@ -34,7 +46,8 @@
         padding: 8px
         background-color: #212121
         margin-bottom: 8px
+        max-width: 600px
 
 .you-chat
     align-self: flex-end
-    background-color: rgb(5, 143, 174)
+    background-color: rgb(9, 170, 206)

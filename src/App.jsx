@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useAuthentication } from "./hooks/useAuthentication";
 import { onAuthStateChanged } from "firebase/auth";
 import { AuthProvider } from "./contexts/useAuth";
+import Profile from "./pages/Profile/Profile";
 
 const App = () => {
   const [user, setUser] = useState(undefined);
@@ -41,6 +42,10 @@ const App = () => {
             <Route
               path="/chat/:uid?"
               element={user ? <ChatScreen /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile"
+              element={user ? <Profile /> : <Navigate to="/" />}
             />
           </Routes>
         </BrowserRouter>
