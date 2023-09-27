@@ -63,6 +63,11 @@ const Chat = ({ chatUser }) => {
                     }
                   >
                     <p>{message.text}</p>
+                    <span>
+                      {new Date(message.createAt * 1000).getHours() +
+                        ":" +
+                        new Date(message.createAt * 1000).getMinutes()}
+                    </span>
                   </li>
                 ))}
           </ul>
