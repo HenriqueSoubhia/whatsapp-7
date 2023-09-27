@@ -15,6 +15,7 @@ export const useAuthentication = () => {
 
   const [cancelled, setCancelled] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   const { insertDocument } = useInsertDocument("users");
 
@@ -33,6 +34,8 @@ export const useAuthentication = () => {
   const createUser = async (data) => {
     checkIsCancelled();
 
+    setLoading(true);
+
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -48,6 +51,8 @@ export const useAuthentication = () => {
         uid: user.uid,
       });
 
+      setLoading(false);
+
       return user;
     } catch (error) {
       let systemErrorMessage;
@@ -62,17 +67,21 @@ export const useAuthentication = () => {
 
       setError(systemErrorMessage);
     }
+    setLoading(false);
+
   };
 
   const login = async (data) => {
     checkIsCancelled();
+    setLoading(true);
 
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
+      setLoading(false);
     } catch (error) {
       let systemErrorMessage;
 
-      console.log(error)
+      console.log(error);
 
       if (error.message.includes("invalid-login-credentials")) {
         systemErrorMessage = "Usuario ou senha incorretas";
@@ -80,6 +89,7 @@ export const useAuthentication = () => {
         systemErrorMessage = "Ocorreu erro, por favor tente mais tarde";
       }
 
+      setLoading(false);
       setError(systemErrorMessage);
     }
   };
@@ -95,5 +105,6 @@ export const useAuthentication = () => {
     login,
     logout,
     error,
+    loading,
   };
 };

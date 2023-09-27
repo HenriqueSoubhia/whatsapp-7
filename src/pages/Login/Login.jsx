@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "./Login.sass";
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { PulseLoader } from "react-spinners";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {login,error} = useAuthentication()
+  const {login,error,loading} = useAuthentication()
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +54,7 @@ const Login = () => {
         
         <button>Entrar</button>
       </form>
+      {loading && <PulseLoader/>}
       {error && <p className="error">{error}</p>}
     </div>
   );

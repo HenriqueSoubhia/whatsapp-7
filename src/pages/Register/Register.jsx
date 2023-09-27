@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Register.sass";
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { PulseLoader } from "react-spinners";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -8,7 +9,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { createUser, error } = useAuthentication();
+  const { createUser, error,loading } = useAuthentication();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +84,7 @@ const Register = () => {
         </label>
         <button>Cadastrar</button>
       </form>
+      {loading && <PulseLoader/>}
       {error && <p className="error">{error}</p>}
     </div>
   );
