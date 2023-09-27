@@ -27,7 +27,7 @@ const App = () => {
   return (
     <>
       <AuthProvider value={{ user }}>
-        <BrowserRouter>
+        <BrowserRouter basename="/whatsapp-7">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
