@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {login} = useAuthentication()
+  const {login,error} = useAuthentication()
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +52,7 @@ const Login = () => {
         
         <button>Entrar</button>
       </form>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

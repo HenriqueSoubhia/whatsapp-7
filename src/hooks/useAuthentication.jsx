@@ -8,13 +8,13 @@ import {
   signOut,
 } from "firebase/auth";
 
-
 import { useInsertDocument } from "./useInsertDocument";
 
 export const useAuthentication = () => {
   const auth = getAuth();
 
   const [cancelled, setCancelled] = useState(false);
+  const [error, setError] = useState(null);
 
   const { insertDocument } = useInsertDocument("users");
 
@@ -50,7 +50,17 @@ export const useAuthentication = () => {
 
       return user;
     } catch (error) {
-      console.log(error);
+      let systemErrorMessage;
+
+      if (error.message.includes("Password")) {
+        systemErrorMessage = "A senha precisa conter pelo menos 6 caracteres.";
+      } else if (error.message.includes("email-already")) {
+        systemErrorMessage = "Email já cadastado.";
+      } else {
+        systemErrorMessage = "Ocorreu erro, por favor tente mais tarde";
+      }
+
+      setError(systemErrorMessage);
     }
   };
 
@@ -60,7 +70,17 @@ export const useAuthentication = () => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
     } catch (error) {
-      console.log(error);
+      let systemErrorMessage;
+
+      console.log(error)
+
+      if (error.message.includes("invalid-login-credentials")) {
+        systemErrorMessage = "Usuario ou senha incorretas";
+      } else {
+        systemErrorMessage = "Ocorreu erro, por favor tente mais tarde";
+      }
+
+      setError(systemErrorMessage);
     }
   };
 
@@ -74,5 +94,6 @@ export const useAuthentication = () => {
     auth,
     login,
     logout,
+    error,
   };
 };

@@ -8,7 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { createUser } = useAuthentication();
+  const { createUser, error } = useAuthentication();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -26,10 +26,11 @@ const Register = () => {
 
     createUser(user);
 
-    setUsername("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+
   };
 
   return (
@@ -82,6 +83,7 @@ const Register = () => {
         </label>
         <button>Cadastrar</button>
       </form>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

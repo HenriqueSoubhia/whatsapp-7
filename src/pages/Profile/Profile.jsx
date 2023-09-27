@@ -12,7 +12,7 @@ const Profile = () => {
 
   const [thisUser, setThisuser] = useState("");
 
-  const { updateDocument } = useUpdateDocument("users");
+  const { updateDocument,success,loading } = useUpdateDocument("users");
 
   useEffect(() => {
     if (users) {
@@ -45,6 +45,8 @@ const Profile = () => {
           <button type="submit">Alterar Nome</button>
         </form>
       )}
+      {loading && <p>Carregando...</p>}
+      {success && <p className="success">{success}</p>}
     </div>
   );
 };
