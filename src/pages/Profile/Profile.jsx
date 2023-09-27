@@ -3,6 +3,8 @@ import { useAuthValue } from "../../contexts/useAuth";
 import { useFecthDocument } from "../../hooks/useFecthDocument";
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
+import PulseLoader from 'react-spinners/PulseLoader'
+
 import "./Profile.sass"
 
 const Profile = () => {
@@ -45,7 +47,7 @@ const Profile = () => {
           <button type="submit">Alterar Nome</button>
         </form>
       )}
-      {loading && <p>Carregando...</p>}
+      {loading && <PulseLoader/>}
       {success && <p className="success">{success}</p>}
     </div>
   );
